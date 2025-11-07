@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { PasswordLock } from "@/components/PasswordLock";
 import { AddBirthdayDialog } from "@/components/AddBirthdayDialog";
 import { BirthdayList } from "@/components/BirthdayList";
+import { GiftPromptDialog } from "@/components/GiftPromptDialog";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
+import { notificationService } from "@/services/notificationService";
+import { Capacitor } from "@capacitor/core";
 
 interface Birthday {
   id: string;
@@ -18,6 +21,8 @@ const STORAGE_KEY = "birthdays";
 const Index = () => {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [birthdays, setBirthdays] = useState<Birthday[]>([]);
+  const [giftPromptOpen, setGiftPromptOpen] = useState(false);
+  const [currentNotificationData, setCurrentNotificationData] = useState<any>(null);
 
   // Load birthdays from localStorage
   useEffect(() => {
@@ -28,6 +33,18 @@ const Index = () => {
       } catch (e) {
         console.error("Failed to load birthdays:", e);
       }
+    }
+  }, []);
+
+  // Request notification permissions and setup listener
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      notificationService.requestPermissions();
+      
+      notificationService.setupNotificationListener((notificationData) => {
+        setCurrentNotificationData(notificationData);
+        setGiftPromptOpen(true);
+      });
     }
   }, []);
 
@@ -76,16 +93,44 @@ const Index = () => {
     }
   }, [isUnlocked, birthdays]);
 
-  const handleAddBirthday = (birthday: Birthday) => {
-    setBirthdays([...birthdays, birthday]);
+  const handleAddBirthday = async (birthday: Birthday) => {
+    const updatedBirthdays = [...birthdays, birthday];
+    setBirthdays(updatedBirthdays);
+    
+    // Schedule notification for the new birthday
+    if (Capacitor.isNativePlatform()) {
+      await notificationService.scheduleYearlyBirthdayNotification(birthday);
+      toast.success("Birthday Added", {
+        description: "Notification scheduled for one day before",
+      });
+    }
   };
 
-  const handleDeleteBirthday = (id: string) => {
+  const handleDeleteBirthday = async (id: string) => {
     const birthday = birthdays.find((b) => b.id === id);
     setBirthdays(birthdays.filter((b) => b.id !== id));
+    
+    // Cancel notification for deleted birthday
+    if (Capacitor.isNativePlatform()) {
+      await notificationService.cancelBirthdayNotification(id);
+    }
+    
     toast.success("Birthday Deleted", {
       description: `${birthday?.name}'s birthday has been removed`,
     });
+  };
+
+  const handleGiftSubmit = (gift: string) => {
+    if (currentNotificationData) {
+      // Store gift idea in localStorage
+      const gifts = JSON.parse(localStorage.getItem("giftIdeas") || "{}");
+      gifts[currentNotificationData.birthdayId] = gift;
+      localStorage.setItem("giftIdeas", JSON.stringify(gifts));
+      
+      toast.success("Gift Idea Saved", {
+        description: `Gift for ${currentNotificationData.personName}: ${gift}`,
+      });
+    }
   };
 
   if (!isUnlocked) {
@@ -103,7 +148,7 @@ const Index = () => {
           <div className="flex items-center justify-center gap-3">
             <Sparkles className="w-10 h-10 text-accent animate-glow-pulse" />
             <h1 className="text-4xl font-bold text-foreground">
-              Birthday Reminder
+              Cherish Day
             </h1>
             <Sparkles className="w-10 h-10 text-primary animate-glow-pulse" />
           </div>
@@ -120,6 +165,14 @@ const Index = () => {
         {/* Birthday List */}
         <BirthdayList birthdays={birthdays} onDelete={handleDeleteBirthday} />
       </div>
+
+      {/* Gift Prompt Dialog */}
+      <GiftPromptDialog
+        open={giftPromptOpen}
+        onClose={() => setGiftPromptOpen(false)}
+        personName={currentNotificationData?.personName || ""}
+        onSubmit={handleGiftSubmit}
+      />
     </div>
   );
 };
