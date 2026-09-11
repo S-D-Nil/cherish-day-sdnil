@@ -46,7 +46,9 @@ const Index = () => {
             if (localBirthdays.length > 0) {
               const { error: insertError } = await supabase
                 .from("birthdays")
-                .insert(localBirthdays);
+                .insert(
+                  localBirthdays.map(({ id: _id, ...rest }) => rest)
+                );
               if (!insertError) {
                 console.log("Migrated local birthdays to cloud");
               }
