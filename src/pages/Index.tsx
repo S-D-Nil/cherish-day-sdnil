@@ -216,12 +216,18 @@ const Index = () => {
           <div className="flex items-center justify-center gap-3">
             <Sparkles className="w-10 h-10 text-accent animate-glow-pulse" />
             <h1 className="text-4xl font-bold text-foreground">
-              Cherish Day
+              Cherish Day — Personalized Birthday Reminder &amp; Tracker
             </h1>
             <Sparkles className="w-10 h-10 text-primary animate-glow-pulse" />
           </div>
           <p className="text-muted-foreground text-lg">
             Never forget another special day
+          </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Save every birthday that matters and see who is celebrating next.
+            Your list is kept in the cloud, so it stays in sync on every device
+            you use, and a reminder arrives the day before each birthday — with
+            room to jot down the gift you have in mind.
           </p>
         </div>
 

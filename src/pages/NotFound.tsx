@@ -6,6 +6,13 @@ const NotFound = () => {
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    document.title = "Page Not Found — Cherish Day";
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        "This Cherish Day page doesn't exist. Head back to your birthday list to keep track of upcoming celebrations."
+      );
   }, [location.pathname]);
 
   return (
