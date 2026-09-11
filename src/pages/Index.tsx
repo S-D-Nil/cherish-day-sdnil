@@ -129,9 +129,10 @@ const Index = () => {
   }, [isUnlocked, birthdays]);
 
   const handleAddBirthday = async (birthday: Birthday) => {
+    const { id: _localId, ...newBirthday } = birthday;
     const { data, error } = await supabase
       .from("birthdays")
-      .insert(birthday)
+      .insert(newBirthday)
       .select("id, name, day, month, year")
       .single();
 
