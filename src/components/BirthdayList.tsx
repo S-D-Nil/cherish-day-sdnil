@@ -116,8 +116,9 @@ export const BirthdayList = ({ birthdays, onDelete }: BirthdayListProps) => {
                 <Button
                   variant="ghost"
                   size="icon"
+                  aria-label={`Delete birthday for ${birthday.name}`}
                   onClick={() => onDelete(birthday.id)}
-                  className="text-destructive hover:text-destructive hover:bg-destructive/10 transition-colors"
+                  className="text-destructive hover:text-destructive hover:bg-destructive/10 transition-colors min-h-11 min-w-11"
                 >
                   <Trash2 className="h-5 w-5" />
                 </Button>
