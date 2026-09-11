@@ -216,7 +216,7 @@ const Index = () => {
           <div className="flex items-center justify-center gap-3">
             <Sparkles className="w-10 h-10 text-accent animate-glow-pulse" />
             <h1 className="text-4xl font-bold text-foreground">
-              Cherish Day — Personalized Birthday Reminder &amp; Tracker
+              Cherish Day
             </h1>
             <Sparkles className="w-10 h-10 text-primary animate-glow-pulse" />
           </div>
