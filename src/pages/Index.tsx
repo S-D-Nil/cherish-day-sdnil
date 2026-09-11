@@ -223,12 +223,6 @@ const Index = () => {
           <p className="text-muted-foreground text-lg">
             Never forget another special day
           </p>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Save every birthday that matters and see who is celebrating next.
-            Your list is kept in the cloud, so it stays in sync on every device
-            you use, and a reminder arrives the day before each birthday — with
-            room to jot down the gift you have in mind.
-          </p>
         </div>
 
         {/* Add Birthday Button */}
