@@ -347,7 +347,10 @@ export const notificationService = {
           notifications: [{ id: numericId }, { id: numericId + 100000 }],
         });
         await LocalNotifications.removeDeliveredNotifications({
-          notifications: [{ id: numericId }, { id: numericId + 100000 }],
+          notifications: [
+            { id: numericId, title: '', body: '' },
+            { id: numericId + 100000, title: '', body: '' },
+          ],
         });
       } catch (e) {
         console.error('Error clearing native notification:', e);
@@ -564,6 +567,12 @@ export const notificationService = {
         notifications: [
           { id: notificationId },
           { id: notificationId + 100000 },
+        ],
+      });
+      await LocalNotifications.removeDeliveredNotifications({
+        notifications: [
+          { id: notificationId, title: '', body: '' },
+          { id: notificationId + 100000, title: '', body: '' },
         ],
       });
     }
