@@ -1,0 +1,6 @@
+{
+  "name": "Cherish Day",
+  "description": "A password-locked, sci-fi themed birthday reminder app with customizable web push notifications, cross-device sync, and gift idea tracker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
