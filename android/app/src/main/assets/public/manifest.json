@@ -1,0 +1,23 @@
+{
+  "short_name": "Cherish Day",
+  "name": "Cherish Day — Birthday Reminder",
+  "icons": [
+    {
+      "src": "/logo_centered.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo_centered.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#090d16",
+  "theme_color": "#00f0ff",
+  "display": "standalone",
+  "orientation": "portrait"
+}
