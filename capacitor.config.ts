@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.p59bda040c0474288adcaee093c01b889',
+  appId: 'com.sdnil.cherishday',
   appName: 'Cherish Day',
   webDir: 'dist',
   server: {
