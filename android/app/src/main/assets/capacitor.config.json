@@ -2,10 +2,6 @@
 	"appId": "com.sdnil.cherishday",
 	"appName": "Cherish Day",
 	"webDir": "dist",
-	"server": {
-		"url": "https://59bda040-c047-4288-adca-ee093c01b889.lovableproject.com?forceHideBadge=true",
-		"cleartext": true
-	},
 	"plugins": {
 		"LocalNotifications": {
 			"smallIcon": "ic_stat_icon_config_sample",
